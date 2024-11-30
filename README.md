@@ -143,6 +143,9 @@ Add multi-language support for broader usability.
 For questions or suggestions, please contact:
 
 Name: Md Nahijul Islam Niloy
+
 Email: nniloy888@gmail.com
+
 GitHub: [Nahijul Islam Niloy](https://github.com/c-onfused69)
+
 Happy Coding! 😊
