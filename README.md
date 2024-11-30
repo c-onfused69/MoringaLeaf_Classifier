@@ -115,12 +115,15 @@ This project is licensed under the MIT License. You are free to use, modify, and
 
 ## **FAQs**
 Q1. What image formats are supported for testing?
+
 A: The application supports common image formats like JPG, PNG, and JPEG.
 
 Q2. What should be the size of uploaded images?
+
 A: The images will be resized to 255x255 during preprocessing, so the size of the uploaded image does not matter.
 
 Q3. How can I improve the model's performance?
+
 A: Refer to the suggestions in the README.md under "Customization," where you can modify the architecture, add data augmentation, or fine-tune hyperparameters.
 
 ## **Known Issues**
