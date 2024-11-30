@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, render_template, redirect, url_for, flash
-from tensorflow.keras.models import load_model # type: ignore
-from tensorflow.keras.preprocessing.image import load_img, img_to_array, ImageDataGenerator # type: ignore
+from tensorflow.keras.models import load_model  # type: ignore
+from tensorflow.keras.preprocessing.image import load_img, img_to_array, ImageDataGenerator  # type: ignore
 from sklearn.metrics import classification_report, confusion_matrix
 import numpy as np
 import matplotlib.pyplot as plt
