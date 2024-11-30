@@ -69,7 +69,7 @@ Ensure you have the following installed:
 - Required Python packages listed in `requirements.txt` (if provided)
 
 ### **2. Clone the Repository**
-# bash
+#### bash
 git clone https://github.com/c-onfused69/MoringaLeaf_Classifier.git
 cd MoringaLeaf_Classifier
 
