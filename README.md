@@ -52,30 +52,30 @@ Access the web app at http://127.0.0.1:5000/.
 
 ## **Usage**
 
-#### ***Home Page***
+#### ***1. Home Page***
 Use the web interface to interact with the app.
 
-### ***Train the Model***
+#### ***2. Train the Model***
 Click the "Train Model" button to train the model. This runs the main.py script.
 
-### ***Test the Model***
+#### ***3. Test the Model***
 Upload an image of a Moringa leaf to test its classification as Healthy or Diseased.
 
-### ***Evaluate the Model***
+#### ***4. Evaluate the Model***
 Evaluate the model's performance on a test dataset.
 View the generated confusion matrix and classification metrics.
 
 ## **Output Examples**
 
-### ***Confusion Matrix***
+#### ***Confusion Matrix***
 Visualizes how well the model performs across different classes.Confusion Matrix
 
-### ***Classification Report Metrics***
+#### ***Classification Report Metrics***
 Precision, Recall, and F1-Score for each class.Classification Report
 
 ## **Technical Details**
 
-### ***Deep Learning Model***
+#### ***Deep Learning Model***
 The project utilizes a convolutional neural network (CNN) based on the Inception V4 architecture:
 
 Input size: 255x255
@@ -83,13 +83,13 @@ Classes: 2 (Healthy, Diseased)
 Optimizer: Adam
 Loss Function: Binary Crossentropy
 
-### ***Technologies Used***
+#### ***Technologies Used***
 Frontend: HTML, Bootstrap, CSS
 Backend: Flask
 Model Framework: TensorFlow/Keras
 Data Visualization: Matplotlib, Seaborn
 
-### ***Customization***
+#### ***Customization***
 Modify Model Architecture: Edit the main.py script to adjust the CNN layers, learning rates, or hyperparameters.
 Add More Classes: Update the dataset and reconfigure the code to handle multiple classes.
 Styling: Edit the styles.css file for custom styling.
@@ -115,26 +115,26 @@ Q3. How can I improve the model's performance?
 A: Refer to the suggestions in the README.md under "Customization," where you can modify the architecture, add data augmentation, or fine-tune hyperparameters.
 
 ## **Known Issues**
-Large Model Training Times:
+#### ****1. Large Model Training Times:****
 If the training process takes too long, consider reducing the dataset size for testing or using a pre-trained model with transfer learning.
 
-Memory Issues with Large Datasets:
+#### ****2. Memory Issues with Large Datasets:****
 If memory is insufficient during evaluation, batch processing and optimization techniques like using a generator should help.
 
 ## **Future Enhancements**
-Add Multi-Class Classification:
+1. Add Multi-Class Classification:
 Extend the model to classify more types of diseases or plant conditions.
 
-Deploy on Cloud Platforms:
+2. Deploy on Cloud Platforms:
 Deploy the app on platforms like AWS, Azure, or Google Cloud for accessibility.
 
-Mobile Compatibility:
+3. Mobile Compatibility:
 Build a mobile-friendly version of the app.
 
-Real-Time Predictions:
+4. Real-Time Predictions:
 Implement real-time leaf classification using camera input.
 
-Localization:
+5. Localization:
 Add multi-language support for broader usability.
 
 
