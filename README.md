@@ -79,14 +79,21 @@ Precision, Recall, and F1-Score for each class.Classification Report
 The project utilizes a convolutional neural network (CNN) based on the Inception V4 architecture:
 
 Input size: 255x255
+
 Classes: 2 (Healthy, Diseased)
+
 Optimizer: Adam
+
 Loss Function: Binary Crossentropy
+
 
 #### ***Technologies Used***
 Frontend: HTML, Bootstrap, CSS
+
 Backend: Flask
+
 Model Framework: TensorFlow/Keras
+
 Data Visualization: Matplotlib, Seaborn
 
 #### ***Customization***
@@ -97,9 +104,11 @@ Styling: Edit the styles.css file for custom styling.
 ## **Contribution**
 Contributions are welcome! Feel free to:
 
-Fork the repository
-Create a new branch
-Submit a pull request
+1. Fork the repository
+
+2. Create a new branch
+
+3. Submit a pull request
 
 ## **License**
 This project is licensed under the MIT License. You are free to use, modify, and distribute this software.
