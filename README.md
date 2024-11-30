@@ -16,45 +16,8 @@ A web-based application that classifies Moringa leaves into *Healthy* or *Diseas
 ---
 
 ## **Project Structure**
+![Project Structure](./readme_assets/Project%20Structure.png)
 
-MoringaLeaf_Classifier/
-├── dataset/
-│   ├── testing_set/
-│   │   ├── diseased/*.png
-│   │   └── healthy/*.png
-│   ├── training_set/
-│   │   ├── diseased/*.png
-│   │   └── healthy/*.png
-│   └── validation_set/
-│       ├── diseased/*.png
-│       └── healthy/*.png
-│
-├── app.py # Main Flask application
-|
-├── models/ 
-│   └── moringaleaf_model.h5 # Pretrained model file
-|
-├── scripts/ 
-│   ├── main.py # Model training script
-|   ├── test.py # Model testing script
-|   ├── evaluation.py # Model evaluation script
-|   └── flux_ui.py # UI for model evaluation using flux
-|
-├── static/ 
-│   ├── confusion_matrix.png # Generated confusion matrix 
-│   ├── classification_report.png # Generated classification report metrics chart 
-│   └── styles.css # Custom CSS for styling
-|
-├── templates/
-│   └── index.html # HTML template for the web app
-|
-├── test/
-│   └── test_images.png # Test images for model testing
-|
-├── ttest/ # Directory containing test dataset 
-├── uploads/ # Directory for uploaded images (auto-created) 
-└── README.md # Documentation file
-└── requirements.txt # List of dependencies
 
 
 ---
