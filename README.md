@@ -52,7 +52,7 @@ Access the web app at http://127.0.0.1:5000/.
 
 ## **Usage**
 
-### ***Home Page***
+#### ***Home Page***
 Use the web interface to interact with the app.
 
 ### ***Train the Model***
