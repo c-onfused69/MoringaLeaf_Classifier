@@ -7,8 +7,8 @@ from tensorflow.keras.preprocessing.image import load_img, img_to_array # type: 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # Paths
-model_path = "E:/AAA/moringaleaf_project/models/moringaleaf_model.h5"
-image_path = "E:/AAA/moringaleaf_project/ttest/diseased/PXL_20241128_015257680.jpg"  # Replace with the path to your test image
+model_path = "E:/AAA/MoringaLeaf_Classifier/models/moringaleaf_model.h5"
+image_path = "E:/AAA/MoringaLeaf_Classifier/ttest/diseased/PXL_20241128_015257680.jpg"  # Replace with the path to your test image
 
 # Load the trained model
 model = load_model(model_path)

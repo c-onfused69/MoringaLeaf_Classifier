@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # Paths
-model_path = "E:/AAA/moringaleaf_project/models/moringaleaf_model.h5"
-test_dir = "E:/AAA/moringaleaf_project/ttest"  # Path to the test directory
+model_path = "E:/AAA/MoringaLeaf_Classifier/models/moringaleaf_model.h5"
+test_dir = "E:/AAA/MoringaLeaf_Classifier/ttest"  # Path to the test directory
 
 # Load the trained model
 model = load_model(model_path)
