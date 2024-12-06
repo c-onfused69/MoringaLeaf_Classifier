@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Paths
-MODEL_PATH = "E:/AAA/moringaleaf_project/models/moringaleaf_model.h5"
-TRAIN_DIR = "E:/AAA/moringaleaf_project/dataset/traning_set"
-VALIDATION_DIR = "E:/AAA/moringaleaf_project/dataset/validation_set"
-TEST_DIR = "E:/AAA/moringaleaf_project/ttest"
+MODEL_PATH = "E:/AAA/MoringaLeaf_Classifier/models/moringaleaf_model.h5"
+TRAIN_DIR = "E:/AAA/MoringaLeaf_Classifier/dataset/traning_set"
+VALIDATION_DIR = "E:/AAA/MoringaLeaf_Classifier/dataset/validation_set"
+TEST_DIR = "E:/AAA/MoringaLeaf_Classifier/dataset/testing_set"
 
 # Helper functions for the app
 def train_model():

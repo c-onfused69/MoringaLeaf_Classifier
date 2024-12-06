@@ -11,11 +11,11 @@ from tensorflow.keras.callbacks import ReduceLROnPlateau, EarlyStopping  # type:
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # 2 suppresses info; 3 suppresses warnings and errors
 
 # Paths
-base_dir = "E:/AAA/moringaleaf_project/dataset"
+base_dir = "E:/AAA/MoringaLeaf_Classifier/dataset"
 train_dir = os.path.join(base_dir, "traning_set")
 validation_dir = os.path.join(base_dir, "validation_set")
 test_dir = os.path.join(base_dir, "testing_set")
-model_save_path = "E:/AAA/moringaleaf_project/models/moringaleaf_model.h5"
+model_save_path = "E:/AAA/MoringaLeaf_Classifier/models/moringaleaf_model.h5"
 
 # Data Generators with enhanced data augmentation
 image_size = (255, 255)  # Updated image size
