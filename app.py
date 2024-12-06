@@ -14,7 +14,7 @@ app.secret_key = "secret_key"
 # Paths
 MODEL_PATH = "E:/AAA/MoringaLeaf_Classifier/models/moringaleaf_model.h5"
 TRAIN_SCRIPT = "E:/AAA/MoringaLeaf_Classifier/main.py"
-TEST_DIR = "E:/AAA/MoringaLeaf_Classifier/ttest"
+TEST_DIR = "E:/AAA/MoringaLeaf_Classifier/dataset/testing_set"
 UPLOAD_FOLDER = "uploads"
 STATIC_FOLDER = "static"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
