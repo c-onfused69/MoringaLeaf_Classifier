@@ -6,6 +6,9 @@ from sklearn.metrics import classification_report, confusion_matrix
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+# Suppress TensorFlow verbose logs
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # 2 suppresses info; 3 suppresses warnings and errors
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -146,4 +149,4 @@ def evaluate():
     return redirect(url_for("home"))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

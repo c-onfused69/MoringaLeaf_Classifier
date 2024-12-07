@@ -8,6 +8,7 @@ from tensorflow.keras.optimizers import Adam  # type: ignore
 from tensorflow.keras.callbacks import ReduceLROnPlateau, EarlyStopping  # type: ignore
 
 # Suppress TensorFlow verbose logs
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # 2 suppresses info; 3 suppresses warnings and errors
 
 # Paths
