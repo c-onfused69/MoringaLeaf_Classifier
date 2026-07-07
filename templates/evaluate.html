@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main style="display: flex; flex-direction: column; gap: 2rem;">
+    
+    <div class="card-header" style="margin-bottom: -1rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 700;">Model Evaluation Metrics</h2>
+        <p style="color: var(--text-secondary);">Comprehensive performance analysis of the Moringa Leaf Classifier on the validation set.</p>
+    </div>
+
+    {% if metrics %}
+    <!-- Evaluation Grid (Bottom Row styled) -->
+    <div class="xai-grid">
+        <!-- Confusion Matrix -->
+        <section class="bento-card">
+            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="margin: 0; font-size: 1.1rem;">Confusion Matrix</h2>
+                <span class="info-badge">Validation Set</span>
+            </div>
+            
+            <div style="background: var(--border-subtle); border-radius: 1.5rem; padding: 2rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <div style="display: grid; grid-template-columns: auto 1fr 1fr; grid-template-rows: auto 1fr 1fr; gap: 4px; width: 100%; max-width: 400px; text-align: center;">
+                    <!-- Headers -->
+                    <div></div>
+                    <div style="font-weight: 600; color: var(--text-secondary); padding-bottom: 8px;">Pred Healthy</div>
+                    <div style="font-weight: 600; color: var(--text-secondary); padding-bottom: 8px;">Pred Diseased</div>
+                    
+                    <!-- Row 1 -->
+                    <div style="font-weight: 600; color: var(--text-secondary); padding-right: 8px; display: flex; align-items: center; justify-content: flex-end;">Actual Healthy</div>
+                    <div style="background: #166534; color: white; border-radius: 8px; padding: 2rem 1rem; font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700;">{{ metrics.cm[0][0] }}</div>
+                    <div style="background: #dcfce7; color: #166534; border-radius: 8px; padding: 2rem 1rem; font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700;">{{ metrics.cm[0][1] }}</div>
+                    
+                    <!-- Row 2 -->
+                    <div style="font-weight: 600; color: var(--text-secondary); padding-right: 8px; display: flex; align-items: center; justify-content: flex-end;">Actual Diseased</div>
+                    <div style="background: #dcfce7; color: #166534; border-radius: 8px; padding: 2rem 1rem; font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700;">{{ metrics.cm[1][0] }}</div>
+                    <div style="background: #15803d; color: white; border-radius: 8px; padding: 2rem 1rem; font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700;">{{ metrics.cm[1][1] }}</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Classification Report -->
+        <section class="bento-card">
+            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="margin: 0; font-size: 1.1rem;">Classification Report</h2>
+                <span class="info-badge">Threshold: 0.5</span>
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-family: var(--font-mono); font-size: 0.95rem;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--border-subtle);">
+                            <th style="padding: 1rem; color: var(--text-secondary); font-family: var(--font-ui);">Class</th>
+                            <th style="padding: 1rem; color: var(--text-secondary); font-family: var(--font-ui);">Precision</th>
+                            <th style="padding: 1rem; color: var(--text-secondary); font-family: var(--font-ui);">Recall</th>
+                            <th style="padding: 1rem; color: var(--text-secondary); font-family: var(--font-ui);">F1-Score</th>
+                            <th style="padding: 1rem; color: var(--text-secondary); font-family: var(--font-ui);">Support</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--border-subtle);">
+                            <td style="padding: 1rem; font-weight: 600; font-family: var(--font-ui);">Healthy</td>
+                            <td style="padding: 1rem;">{{ "%.2f"|format(metrics.report['Healthy']['precision']) }}</td>
+                            <td style="padding: 1rem;">{{ "%.2f"|format(metrics.report['Healthy']['recall']) }}</td>
+                            <td style="padding: 1rem;">{{ "%.2f"|format(metrics.report['Healthy']['f1-score']) }}</td>
+                            <td style="padding: 1rem;">{{ metrics.report['Healthy']['support'] }}</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-subtle);">
+                            <td style="padding: 1rem; font-weight: 600; font-family: var(--font-ui);">Diseased</td>
+                            <td style="padding: 1rem;">{{ "%.2f"|format(metrics.report['Diseased']['precision']) }}</td>
+                            <td style="padding: 1rem;">{{ "%.2f"|format(metrics.report['Diseased']['recall']) }}</td>
+                            <td style="padding: 1rem;">{{ "%.2f"|format(metrics.report['Diseased']['f1-score']) }}</td>
+                            <td style="padding: 1rem;">{{ metrics.report['Diseased']['support'] }}</td>
+                        </tr>
+                        <tr style="background: rgba(34, 197, 94, 0.05); border-bottom: 1px solid var(--border-subtle);">
+                            <td style="padding: 1rem; font-weight: 700; font-family: var(--font-ui); color: var(--accent-primary);">Accuracy</td>
+                            <td colspan="3" style="padding: 1rem; text-align: center; font-weight: 700; color: var(--accent-primary);">{{ "%.2f"|format(metrics.accuracy * 100) }}%</td>
+                            <td style="padding: 1rem;">{{ metrics.report['macro avg']['support'] }}</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-subtle);">
+                            <td style="padding: 1rem; font-weight: 600; font-family: var(--font-ui);">Macro Avg</td>
+                            <td style="padding: 1rem;">{{ "%.2f"|format(metrics.report['macro avg']['precision']) }}</td>
+                            <td style="padding: 1rem;">{{ "%.2f"|format(metrics.report['macro avg']['recall']) }}</td>
+                            <td style="padding: 1rem;">{{ "%.2f"|format(metrics.report['macro avg']['f1-score']) }}</td>
+                            <td style="padding: 1rem;">{{ metrics.report['macro avg']['support'] }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem; font-weight: 600; font-family: var(--font-ui);">Weighted Avg</td>
+                            <td style="padding: 1rem;">{{ "%.2f"|format(metrics.report['weighted avg']['precision']) }}</td>
+                            <td style="padding: 1rem;">{{ "%.2f"|format(metrics.report['weighted avg']['recall']) }}</td>
+                            <td style="padding: 1rem;">{{ "%.2f"|format(metrics.report['weighted avg']['f1-score']) }}</td>
+                            <td style="padding: 1rem;">{{ metrics.report['weighted avg']['support'] }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    {% else %}
+    <section class="bento-card" style="text-align: center; padding: 4rem 2rem;">
+        <h3 style="margin-bottom: 1rem; color: var(--text-primary);">No Evaluation Data Found</h3>
+        <p style="color: var(--text-secondary);">Please run <code>python evaluate.py</code> to generate the metrics.</p>
+    </section>
+    {% endif %}
+</main>
+{% endblock %}

@@ -1,0 +1,11 @@
+venv/
+.env/
+__pycache__/
+*.pyc
+.git/
+outputs/
+paper/
+brain/
+.gemini/
+dataset/
+*.keras

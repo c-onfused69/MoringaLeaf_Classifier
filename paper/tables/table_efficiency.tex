@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+\centering
+\caption{Computational complexity and inference latency of the evaluated deep learning models on Intel Core i7-1165G7 CPU.}
+\label{tab:efficiency}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Model & Total_Parameters (M) & Model_Size (MB) & Estimated_GFLOPs & CPU_Latency (ms) \\
+\midrule
+inception_v3 & 22.850 & 87.170 & 11.467 & 276.120 \\
+resnet50 & 24.640 & 93.980 & 7.753 & 297.790 \\
+densenet121 & 7.560 & 28.850 & 5.701 & 299.160 \\
+efficientnetb0 & 4.710 & 17.950 & 0.802 & 240.010 \\
+mobilenetv3 & 3.490 & 13.310 & 0.445 & 194.030 \\
+vit & 86.190 & 328.800 & 35.244 & 273.150 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

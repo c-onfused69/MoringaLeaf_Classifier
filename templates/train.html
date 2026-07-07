@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    
+    <section class="bento-card" style="width: 100%; max-width: 600px;">
+        <div class="card-header" style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem;">Train New Model</h2>
+            <p style="color: var(--text-secondary);">Configure hyperparameters and select architecture</p>
+        </div>
+        
+        <form action="#" method="POST" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <label for="architecture" style="font-weight: 600; font-size: 0.95rem;">Model Architecture</label>
+                <select id="architecture" name="architecture" style="padding: 1rem; border-radius: 1rem; border: 1px solid var(--border-subtle); background: var(--bg-base); font-family: var(--font-ui); outline: none;">
+                    <option value="inception_v3">Inception-v3 (Recommended)</option>
+                    <option value="resnet50">ResNet50</option>
+                    <option value="densenet121">DenseNet121</option>
+                    <option value="efficientnetb0">EfficientNetB0</option>
+                    <option value="mobilenetv3">MobileNetV3</option>
+                    <option value="vit">Vision Transformer (ViT)</option>
+                </select>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <label for="epochs" style="font-weight: 600; font-size: 0.95rem;">Epochs (Phase 1)</label>
+                    <input type="number" id="epochs" name="epochs" value="10" min="1" max="100" style="padding: 1rem; border-radius: 1rem; border: 1px solid var(--border-subtle); background: var(--bg-base); font-family: var(--font-ui); outline: none;">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <label for="batch_size" style="font-weight: 600; font-size: 0.95rem;">Batch Size</label>
+                    <input type="number" id="batch_size" name="batch_size" value="32" min="8" max="128" style="padding: 1rem; border-radius: 1rem; border: 1px solid var(--border-subtle); background: var(--bg-base); font-family: var(--font-ui); outline: none;">
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <label for="k_folds" style="font-weight: 600; font-size: 0.95rem;">K-Folds (Cross Validation)</label>
+                <input type="number" id="k_folds" name="k_folds" value="5" min="1" max="10" style="padding: 1rem; border-radius: 1rem; border: 1px solid var(--border-subtle); background: var(--bg-base); font-family: var(--font-ui); outline: none;">
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: rgba(34, 197, 94, 0.05); border-radius: 1rem; margin-top: 0.5rem;">
+                <input type="checkbox" id="finetune" name="finetune" checked style="width: 20px; height: 20px; accent-color: var(--accent-primary);">
+                <label for="finetune" style="font-weight: 500; font-size: 0.95rem; color: var(--accent-primary); cursor: pointer;">Enable Phase 2 Fine-Tuning</label>
+            </div>
+
+            <button type="button" class="btn-primary" style="margin-top: 1rem;" onclick="alert('Training module initiated in background via terminal.')">
+                Start Training Process
+            </button>
+        </form>
+    </section>
+
+</main>
+{% endblock %}

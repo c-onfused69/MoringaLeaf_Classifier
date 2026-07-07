@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:;">
+    <title>Moringa Leaf Classifier</title>
+    
+    <!-- Fonts: Geist / Satoshi aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    
+    <div class="dashboard-container">
+        
+        <!-- Navigation Bar -->
+        <nav class="top-nav">
+            <div class="nav-brand">
+                <span class="brand-icon" style="font-size: 1.5rem; line-height: 1;">🌿</span>
+                <span class="brand-text">MoringaLeaf_Classifier</span>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active{% endif %}">Home</a>
+                <a href="{{ url_for('train_model') }}" class="{% if request.endpoint == 'train_model' %}active{% endif %}">Train Model</a>
+                <a href="{{ url_for('test_model') }}" class="{% if request.endpoint == 'test_model' or request.endpoint == 'predict' %}active{% endif %}">Test Model</a>
+                <a href="{{ url_for('evaluate_model') }}" class="{% if request.endpoint == 'evaluate_model' %}active{% endif %}">Evaluate Model</a>
+                <a href="{{ url_for('about') }}" class="{% if request.endpoint == 'about' %}active{% endif %}">About</a>
+            </div>
+        </nav>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-alert flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Main Content Block -->
+        {% block content %}{% endblock %}
+
+        <!-- Process Footer -->
+        <footer class="process-banner">
+            <div class="step {% if request.endpoint == 'home' or request.endpoint == 'train_model' %}active-step{% endif %}">
+                <div class="step-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                </div>
+                <div class="step-text">
+                    <strong>1 Upload Dataset</strong>
+                    <span>Prepare your data</span>
+                </div>
+            </div>
+            <div class="step-divider"></div>
+            <div class="step {% if request.endpoint == 'train_model' %}active-step{% endif %}">
+                <div class="step-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                </div>
+                <div class="step-text">
+                    <strong>2 Train Model</strong>
+                    <span>Start training process</span>
+                </div>
+            </div>
+            <div class="step-divider"></div>
+            <div class="step {% if request.endpoint == 'test_model' or request.endpoint == 'predict' %}active-step{% endif %}">
+                <div class="step-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h4l3-9 5 18 3-9h5"/></svg>
+                </div>
+                <div class="step-text">
+                    <strong>3 Test Model</strong>
+                    <span>Predict leaf health</span>
+                </div>
+            </div>
+            <div class="step-divider"></div>
+            <div class="step {% if request.endpoint == 'evaluate_model' %}active-step{% endif %}">
+                <div class="step-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                </div>
+                <div class="step-text">
+                    <strong>4 Evaluate</strong>
+                    <span>View performance</span>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Scripts Block -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>

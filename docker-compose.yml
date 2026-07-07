@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./static:/app/static
+    environment:
+      - FLASK_ENV=production
+      - PYTHONIOENCODING=utf-8
+    restart: unless-stopped

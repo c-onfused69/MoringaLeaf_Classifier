@@ -1,163 +1,184 @@
-# MoringaLeaf_Classifier
-A deep learning-based web application for classifying the health of Moringa leaves using an Inception-v4 architecture. This project detects diseases in leaves and provides insights through metrics like accuracy, confusion matrices, and classification reports, visualized with charts for better interpretability.
+# MoringaLeaf_Classifier 🌿
 
-# Moringa Leaf Classification Application 🌿
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](https://tensorflow.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-A web-based application that classifies Moringa leaves into *Healthy* or *Diseased* categories using a deep learning model. The application is built using Flask and TensorFlow, allowing users to train, test, and evaluate the model directly from the web interface.
-
----
-
-## **Features**
-1. **Train the Model:** Train the deep learning model using pre-labeled datasets.
-2. **Test the Model:** Upload a Moringa leaf image to predict whether it is *Healthy* or *Diseased*.
-3. **Evaluate the Model:** Analyze model performance with confusion matrices and classification reports.
-4. **Visualization:** View confusion matrices and classification metrics for better insights.
+A robust, research-grade deep learning framework for classifying the health of Moringa leaves. This repository contains the complete experimental pipeline used to benchmark multiple deep learning architectures and generate Explainable AI (XAI) visualizations for precision agriculture.
 
 ---
 
-## **Project Structure**
-![Project Structure](./readme_assets/Project%20Structure.png)
+## 🌟 Key Features
 
-
+1. **Multi-Architecture Benchmarking**: Support for training and evaluating 6 state-of-the-art architectures (InceptionV3, ResNet50, DenseNet121, EfficientNetB0, MobileNetV3, ViT).
+2. **Explainable AI (XAI)**: Integrated Grad-CAM and LIME for visual model interpretability, ensuring models focus on genuine disease symptoms rather than background noise.
+3. **Rigorous Validation**: Built-in 5-fold stratified cross-validation for statistically sound performance metrics.
+4. **Comprehensive Evaluation**: Automated generation of ROC-AUC curves, normalized confusion matrices, and per-class classification reports.
+5. **Systematic Ablation Studies**: Scripts to quantify the impact of data augmentation and fine-tuning strategies.
+6. **Web Application**: A Flask-based web interface for real-time inference and XAI visualization.
 
 ---
 
-## **How to Run the Project**
+## 🚀 Getting Started / Installation
 
-### **1. Prerequisites**
-Ensure you have the following installed:
-- Python 3.7 or later
-- TensorFlow
-- Flask
-- Required Python packages listed in `requirements.txt` (if provided)
+### 1. Prerequisites
 
-### **2. Clone the Repository**
-#### bash
+- Python 3.8 or later
+- CUDA Toolkit (if using GPU acceleration)
+
+### 2. Clone the Repository
+
+```bash
 git clone https://github.com/c-onfused69/MoringaLeaf_Classifier.git
 cd MoringaLeaf_Classifier
+```
 
-### **3. Install Dependencies**
-python -m venv venv
-source venv/bin/activate  # For Linux/Mac
-venv\Scripts\activate     # For Windows
+### 3. Install Dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
-### **4. Prepare the Dataset**
-Add training and testing datasets to appropriate directories.
-Ensure the test dataset is placed in the ttest/ directory, organized into subdirectories for each class (e.g., Healthy, Diseased).
+### 4. Dataset Setup
 
-### **5. Run the Application**
+Ensure your dataset is organized inside the `dataset/` directory as defined in `config.py`. The structure should be:
+
+```
+dataset/
+├── traning_set/
+│   ├── diseased/
+│   └── healthy/
+├── validation_set/
+│   ├── diseased/
+│   └── healthy/
+└── testing_set/
+    ├── diseased/
+    └── healthy/
+```
+
+---
+
+## 📊 Experimental Pipeline
+
+The framework is driven by a central configuration file (`config.py`). All paths, hyperparameters, and augmentation settings can be modified there.
+
+### Training
+
+Train models using cross-validation. The script supports two-phase training (frozen backbone followed by fine-tuning).
+
+```bash
+# Train models on all 5 folds
+python train.py --model inception_v3
+python train.py --model resnet50
+python train.py --model densenet121
+python train.py --model efficientnetb0
+python train.py --model mobilenetv3
+python train.py --model vit
+
+# Example: Train DenseNet121 on a single fold for a quick test
+python train.py --model densenet121 --folds 1 --quick-test
+```
+
+### Evaluation
+
+Generate comprehensive metrics (Accuracy, F1, Kappa, AUC) and publication-quality plots.
+
+```bash
+# Aggregate results across all folds for each model
+python evaluate.py --model-name inception_v3 --all-folds
+python evaluate.py --model-name resnet50 --all-folds
+python evaluate.py --model-name densenet121 --all-folds
+python evaluate.py --model-name efficientnetb0 --all-folds
+python evaluate.py --model-name mobilenetv3 --all-folds
+python evaluate.py --model-name vit --all-folds
+
+# Example: Evaluate a specific fold
+python evaluate.py --model-name inception_v3 --fold 0
+```
+
+### Ablation Studies
+
+Run controlled experiments to test specific design choices.
+
+```bash
+# Test the impact of data augmentation for each model
+python ablation.py --experiment augmentation --model inception_v3
+python ablation.py --experiment augmentation --model resnet50
+python ablation.py --experiment augmentation --model densenet121
+python ablation.py --experiment augmentation --model efficientnetb0
+python ablation.py --experiment augmentation --model mobilenetv3
+python ablation.py --experiment augmentation --model vit
+
+# Test freezing strategies
+python ablation.py --experiment freezing --model inception_v3
+python ablation.py --experiment freezing --model resnet50
+python ablation.py --experiment freezing --model densenet121
+python ablation.py --experiment freezing --model efficientnetb0
+python ablation.py --experiment freezing --model mobilenetv3
+python ablation.py --experiment freezing --model vit
+```
+
+### Publication Assets
+
+Generate the final efficiency metrics (FLOPs, latency) and export publication-ready LaTeX tables for your manuscript.
+
+```bash
+# Run model efficiency profiling (simulates CPU edge deployment)
+python efficiency.py
+
+# Export all metrics to LaTeX tables
+python export_tables.py
+```
+
+---
+
+## 💻 Web Application
+
+To deploy the local web application for testing predictions with Dual XAI overlays (Grad-CAM & LIME):
+
+```bash
+# 1. Activate the environment
+venv\Scripts\activate
+
+# 2. Run the application
 python app.py
-Access the web app at http://127.0.0.1:5000/.
+```
 
-## **Usage**
+Then navigate to `http://127.0.0.1:5000/` in your browser.
 
-#### ***1. Home Page***
-Use the web interface to interact with the app.
+### 🐳 Docker Deployment
 
-#### ***2. Train the Model***
-Click the "Train Model" button to train the model. This runs the main.py script.
+For 100% reproducibility and cross-platform compatibility, you can run the web app using Docker:
 
-#### ***3. Test the Model***
-Upload an image of a Moringa leaf to test its classification as Healthy or Diseased.
+```bash
+docker compose up --build
+```
 
-#### ***4. Evaluate the Model***
-Evaluate the model's performance on a test dataset.
-View the generated confusion matrix and classification metrics.
+This will automatically build the environment with all dependencies and serve the application on port 5000.
 
-## **Output Examples**
+---
 
-#### ***Confusion Matrix***
-Visualizes how well the model performs across different classes.Confusion Matrix
+## 🛠️ Tech Stack
 
-#### ***Classification Report Metrics***
-Precision, Recall, and F1-Score for each class.Classification Report
+- **Deep Learning**: TensorFlow / Keras, timm (Transformers)
+- **Computer Vision**: OpenCV, scikit-image
+- **Data & Evaluation**: NumPy, Pandas, Scikit-learn
+- **Visualization**: Matplotlib, Seaborn
+- **Web App**: Flask, Bootstrap 5
+- **Explainability**: tf-keras-vis (Grad-CAM), LIME
 
-## **Technical Details**
+---
 
-#### ***Deep Learning Model***
-The project utilizes a convolutional neural network (CNN) based on the Inception V4 architecture:
+## 📝 Legacy Scripts
 
-Input size: 255x255
+Earlier iterations of procedural scripts (`main.py`, `evaluation.py`, etc.) have been moved to the `legacy/` directory for historical reference. The new modular pipeline (`train.py`, `evaluate.py`) replaces them.
 
-Classes: 2 (Healthy, Diseased)
+---
 
-Optimizer: Adam
+## 📫 Contact / Connect
 
-Loss Function: Binary Crossentropy
-
-
-#### ***Technologies Used***
-Frontend: HTML, Bootstrap, CSS
-
-Backend: Flask
-
-Model Framework: TensorFlow/Keras
-
-Data Visualization: Matplotlib, Seaborn
-
-#### ***Customization***
-Modify Model Architecture: Edit the main.py script to adjust the CNN layers, learning rates, or hyperparameters.
-Add More Classes: Update the dataset and reconfigure the code to handle multiple classes.
-Styling: Edit the styles.css file for custom styling.
-
-## **Contribution**
-Contributions are welcome! Feel free to:
-
-1. Fork the repository
-
-2. Create a new branch
-
-3. Submit a pull request
-
-## **License**
-This project is licensed under the MIT License. You are free to use, modify, and distribute this software.
-
-## **FAQs**
-Q1. What image formats are supported for testing?
-
-A: The application supports common image formats like JPG, PNG, and JPEG.
-
-Q2. What should be the size of uploaded images?
-
-A: The images will be resized to 255x255 during preprocessing, so the size of the uploaded image does not matter.
-
-Q3. How can I improve the model's performance?
-
-A: Refer to the suggestions in the README.md under "Customization," where you can modify the architecture, add data augmentation, or fine-tune hyperparameters.
-
-## **Known Issues**
-#### ****1. Large Model Training Times:****
-If the training process takes too long, consider reducing the dataset size for testing or using a pre-trained model with transfer learning.
-
-#### ****2. Memory Issues with Large Datasets:****
-If memory is insufficient during evaluation, batch processing and optimization techniques like using a generator should help.
-
-## **Future Enhancements**
-1. Add Multi-Class Classification:
-Extend the model to classify more types of diseases or plant conditions.
-
-2. Deploy on Cloud Platforms:
-Deploy the app on platforms like AWS, Azure, or Google Cloud for accessibility.
-
-3. Mobile Compatibility:
-Build a mobile-friendly version of the app.
-
-4. Real-Time Predictions:
-Implement real-time leaf classification using camera input.
-
-5. Localization:
-Add multi-language support for broader usability.
-
-
-
-### ***Contact***
-For questions or suggestions, please contact:
-
-Name: Md Nahijul Islam Niloy
-
-Email: nniloy888@gmail.com
-
+Name: Md Nahijul Islam Niloy  
+Email: nniloy888@gmail.com  
 GitHub: [Nahijul Islam Niloy](https://github.com/c-onfused69)
 
-Happy Coding! 😊
+_If you use this framework in your research, please consider citing this repository._

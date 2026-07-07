@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="bento-grid">
+    <!-- Prediction Result Card (Left Column) -->
+    <section class="bento-card prediction-card" style="grid-column: 1 / -1;">
+        <div class="card-header">
+            <h2>Leaf Health Inference</h2>
+        </div>
+        
+        <div class="prediction-content">
+            {% if prediction %}
+                <!-- Uploaded State -->
+                <div class="image-wrapper">
+                    <img src="{{ original_img }}" alt="Analyzed Leaf" class="leaf-image">
+                </div>
+                <div class="prediction-details">
+                    <h1 class="prediction-title {% if prediction == 'Healthy' %}text-healthy{% else %}text-diseased{% endif %}">
+                        {{ prediction }} Leaf
+                    </h1>
+                    <div class="status-badge {% if prediction == 'Healthy' %}badge-healthy{% else %}badge-diseased{% endif %}">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                        <span>{{ prediction }}</span>
+                    </div>
+                    
+                    <div class="confidence-section">
+                        <span class="conf-label">Confidence Score</span>
+                        <div class="conf-bar-container">
+                            <div class="conf-bar-fill {% if prediction == 'Healthy' %}bg-healthy{% else %}bg-diseased{% endif %}" style="--fill-width: {{ confidence }}; width: var(--fill-width, 0%);"></div>
+                            <span class="conf-value {% if prediction == 'Healthy' %}text-healthy{% else %}text-diseased{% endif %}">{{ confidence }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="model-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Model</span>
+                            <span class="meta-value">Inception-v3</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Image Size</span>
+                            <span class="meta-value">224 x 224</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Status</span>
+                            <span class="meta-value text-healthy">Verified</span>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <!-- Empty/Upload State -->
+                <div class="upload-state">
+                    <form action="/predict" method="POST" enctype="multipart/form-data" id="uploadForm">
+                        <div class="upload-dropzone" style="max-width: 600px; margin: 0 auto 2rem auto;">
+                            <input type="file" id="image" name="image" required accept=".png,.jpg,.jpeg">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            <p>Drop leaf image here or click to upload</p>
+                        </div>
+                        <div style="max-width: 600px; margin: 0 auto;">
+                            <button type="submit" class="btn-primary" id="submitBtn">
+                                <span id="btn-text">Analyze Leaf</span>
+                                <div class="loader-ring d-none" id="btn-spinner"></div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Explainability Section (Bottom Row) -->
+    <div class="xai-grid">
+        <!-- Grad-CAM -->
+        <section class="bento-card xai-card">
+            <div class="card-header">
+                <h2>Explainability: Grad-CAM</h2>
+                <span class="info-badge">Spatial Focus</span>
+            </div>
+            <div class="xai-content">
+                {% if cam_img %}
+                    <img src="{{ cam_img }}" alt="Grad-CAM" class="xai-image">
+                {% else %}
+                    <div class="empty-xai">Run prediction to view heatmap</div>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- LIME -->
+        <section class="bento-card xai-card">
+            <div class="card-header">
+                <h2>Explainability: LIME</h2>
+                <span class="info-badge">Superpixel Seg</span>
+            </div>
+            <div class="xai-content">
+                {% if lime_img %}
+                    <img src="{{ lime_img }}" alt="LIME" class="xai-image">
+                {% else %}
+                    <div class="empty-xai">Run prediction to view boundaries</div>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const form = document.getElementById('uploadForm');
+    if (form) {
+        form.addEventListener('submit', function() {
+            document.getElementById('btn-text').style.opacity = '0';
+            document.getElementById('btn-spinner').classList.remove('d-none');
+            document.getElementById('submitBtn').style.pointerEvents = 'none';
+        });
+        
+        const fileInput = document.getElementById('image');
+        fileInput.addEventListener('change', function(e) {
+            if (this.files && this.files[0]) {
+                const dropzone = document.querySelector('.upload-dropzone p');
+                dropzone.textContent = this.files[0].name;
+                dropzone.style.color = '#22c55e';
+            }
+        });
+    }
+</script>
+{% endblock %}
